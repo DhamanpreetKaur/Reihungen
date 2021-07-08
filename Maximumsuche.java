@@ -157,6 +157,10 @@ public class Maximumsuche extends PApplet
         //       die Befehle: redraw(); und delay(verzoegerung); ein.
         //       Als Ergebnis soll die Methode die Position des Maximums zurückgeben
         //       Kommentiere die Maximumsuche
+        int max=0;
+        for (int k=0;k<zahlen.length;k++){
+         
+        }
         // ------------------------------------------------------------------------------
         //<>//
         return -1;

@@ -16,6 +16,12 @@ public class Balkendiagramm_CSV extends PApplet
     // Deklariere ein Array zahlen für die Punkte und ein Array namen für die Spielernamen
     //------------
     // TODO
+    int [] punkte;
+    String [] namen;
+
+    int fgColor=255;
+    int bgColor=0;
+    int barColor=0xff0000ff;
     //------------
 
     // Schriften
@@ -44,7 +50,7 @@ public class Balkendiagramm_CSV extends PApplet
         // Schriften laden
         kleineSchrift = createFont("fonts/NotoSans-Medium.ttf", 12); //12 / 26
         grosseSchrift = createFont("fonts/NotoSansDisplay-Medium.ttf",20); //20 /48
-   
+
         // CSV-Datei laden und anzeigen
         ladeTabelle("data/punkte.csv");
         zeichneBalken();
@@ -55,42 +61,62 @@ public class Balkendiagramm_CSV extends PApplet
         Table csv = loadTable(name,"header,csv");
 
         // Initialisiere Arrays, in die alle Zeilen der Tabelle passen
+        punkte = new int[csv.getRowCount()];
+        namen = new String[csv.getRowCount()];
         // Die Anzahl der gespeicherten Zeilen bekommt man mit csv.getRowCount()
         //------------
         // TODO
         //------------
-
-        // Fülle die Arrays mit Werten aus der Tabelle
-        // Mit csv.getInt(zeilennummer, "Name der Spalte") oder csv.getInt(zeilennummer, spaltennummer)
-        // bekommt man die Werte der Tabelleneinträge als Integer-Wert
-        // Informiere dich unter https://processing.org/reference/Table.html, welche Methode geeignet ist,
-        // um die Namen der Spieler als String zu bekommen. getInt hilft hier nicht weiter.
-        //------------
-        // TODO
-        //------------  
+        for (int k=0; k<punkte.length; k++){
+            punkte[k]= csv.getInt(k,"Punkte");
+            namen[k]= csv.getString(k,"Name");
+        }
     }
 
+    // Fülle die Arrays mit Werten aus der Tabelle
+    // Mit csv.getInt(zeilennummer, "Name der Spalte") oder csv.getInt(zeilennummer, spaltennummer)
+    // bekommt man die Werte der Tabelleneinträge als Integer-Wert
+    // Informiere dich unter https://processing.org/reference/Table.html, welche Methode geeignet ist,
+    // um die Namen der Spieler als String zu bekommen. getInt hilft hier nicht weiter.
+    //------------
+    // TODO
+    //------------  
+
     public void zeichneBalken() {
-
         clear();
-
         // Überschrift
         fill(255,255,255);
         textFont(grosseSchrift);
-        text("Punkte", 2, 20);
+        text("Punkte", 100, 20);
+        text("Name",2, 20);
         textFont(kleineSchrift);  
 
-        // Alle Einträge darstellen
-        // lasse alle Ergebnisse der Spieler in der Form
-        // SpielerXY  234 XXXXXXXXXXXXXXXX
-        // SpielerZY  12  XX
-        // usw.
-        // darstellen. Wandle dazu dein Programm, um die Werte eines Arrays darzustelle ab.
-        //------------
-        // TODO
-        //------------
+        for(int i=0; i < punkte.length; i++) {
+            // Balkendiagramm zeichnen
+            fill(barColor);
+            rect(200, 15*i+25, punkte[i], 13); //2*zahlen[i]
 
+            // Beschriftung
+            fill(fgColor);
+            textFont(kleineSchrift);  
+            // text("i="+i, 2, 38+i*15);
+            text(""+namen[i],30,38+i*15);
+            text(""+punkte[i], 130, 38+i*15);
+        }
+        
+        
     }
+
+    // Alle Einträge darstellen
+    // lasse alle Ergebnisse der Spieler in der Form
+    // SpielerXY  234 XXXXXXXXXXXXXXXX
+    // SpielerZY  12  XX
+    // usw.
+    // darstellen. Wandle dazu dein Programm, um die Werte eines Arrays darzustelle ab.
+    //------------
+    // TODO
+    //------------
+
 
     /**
      * Mit der main()-Methode wird das Programm gestartet.
